@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>CityHack22 Project</title>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
 </head>
 <body>
     <div id="chart_container" style="width:100%; height:400px;"></div>
     <script>
+        /*
         var chart = Highcharts.chart('chart_container', {
             chart: {
                 renderTo: 'chart_container',
@@ -43,6 +45,42 @@
             }, {
                 name: 'Predicted',
                 data: [[1370131200000, 5], [1370217600000, 6], [1370304000000, 7], [1370390400000, 8]]
+            }]
+        });
+        */
+        var chart = Highcharts.chart('chart_container', {
+            chart: {
+                renderTo: 'chart_container',
+                type: 'arearange',
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Hourly Demand Prediction'
+            },
+            subtitle: {
+                text: 'By Kowloon Tong MMW'
+            },
+            xAxis: {
+                type: 'datetime',
+                dateTimeLabelFormats: {
+                    millisecond: '%H:%M:%S.%L',
+                    second: '%H:%M:%S',
+                    minute: '%H:%M',
+                    hour: '%H:%M',
+                    day: '%m-%d',
+                    week: '%m-%d',
+                    month: '%Y-%m',
+                    year: '%Y'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                }
+            },
+            series: [{
+                name: 'Actual/Predicted',
+                data: [[1370131200000, 1, 5], [1370217600000, 2, 6], [1370304000000, 3, 7], [1370390400000, 4, -1]]
             }]
         });
     </script>
