@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import MultipleLocator
 
 if(__name__=="__main__"):
-    csv = pd.read_csv('CH22_Demand_XY_Train.csv', sep=',', usecols=[0, 1, 2, 3, 4, 5])
+    csv = pd.read_csv('static/CH22_Demand_XY_Train.csv', sep=',', usecols=[0, 1, 2, 3, 4, 5])
 
     delta_x = MultipleLocator(1000)
     ax = plt.gca()
