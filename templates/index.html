@@ -3,86 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <title>CityHack22 Project</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='bitbug_favicon.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+        .header {
+            position: fixed;
+            background: white;
+            color: black;
+            height: 51px;
+            z-index: 1;
+            border-bottom: silver solid 1px;
+        }
+        .logo {
+            height: 50px;
+            width: 50px;
+            background-image: url("{{ url_for('static', filename='favicon.png') }}");
+            background-size: cover;
+        }
+        .header-tab {
+            height: 50px
+        }
+        .header-tab:hover {
+            background: linear-gradient(white 80%, silver);
+            background-size: 100% 200%;
+            height: 50px;
+            animation: header-tab-hover 0.5s ease;
+            animation-fill-mode: forwards;
+            cursor: pointer;
+        }
+        @keyframes header-tab-hover
+        {
+            from {background-position: 0% 0%;}
+            to {background-position: 0% 100%;}
+        }
+    </style>
 </head>
 <body>
-    <div id="chart_container" style="width:100%; height:400px;"></div>
-    <script>
-        /*
-        var chart = Highcharts.chart('chart_container', {
-            chart: {
-                renderTo: 'chart_container',
-                type: 'line'
-            },
-            title: {
-                text: 'Hourly Demand Prediction'
-            },
-            subtitle: {
-                text: 'By Kowloon Tong MMW'
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: {
-                    millisecond: '%H:%M:%S.%L',
-                    second: '%H:%M:%S',
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%m-%d',
-                    week: '%m-%d',
-                    month: '%Y-%m',
-                    year: '%Y'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Value'
-                }
-            },
-            series: [{
-                name: 'Actual',
-                data: [[1370131200000, 1], [1370217600000, 2], [1370304000000, 3], [1370390400000, 4]]
-            }, {
-                name: 'Predicted',
-                data: [[1370131200000, 5], [1370217600000, 6], [1370304000000, 7], [1370390400000, 8]]
-            }]
-        });
-        */
-        var chart = Highcharts.chart('chart_container', {
-            chart: {
-                renderTo: 'chart_container',
-                type: 'arearange',
-                zoomType: 'x'
-            },
-            title: {
-                text: 'Hourly Demand Prediction'
-            },
-            subtitle: {
-                text: 'By Kowloon Tong MMW'
-            },
-            xAxis: {
-                type: 'datetime',
-                dateTimeLabelFormats: {
-                    millisecond: '%H:%M:%S.%L',
-                    second: '%H:%M:%S',
-                    minute: '%H:%M',
-                    hour: '%H:%M',
-                    day: '%m-%d',
-                    week: '%m-%d',
-                    month: '%Y-%m',
-                    year: '%Y'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Value'
-                }
-            },
-            series: [{
-                name: 'Actual/Predicted',
-                data: [[1370131200000, 1, 5], [1370217600000, 2, 6], [1370304000000, 3, 7], [1370390400000, 4, -1]]
-            }]
-        });
-    </script>
+    <div class="header container-fluid">
+        <div class="container text-center" style="line-height: 50px">
+            <div class="row">
+                <div class="col-1">
+                    <div class="mx-auto logo" onclick="location.href='{{ url_for('index.index') }}'"></div>
+                </div>
+                <div class="offset-2 col-2 header-tab">About Us</div>
+                <div class="col-2 header-tab">Project Introduction</div>
+                <div class="col-2 header-tab">Techniques</div>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="offset-3 col-6">
+                <div style="height: 50px"></div>
+                <div id="chart_container" style="width:100%; height:400px;"></div>
+                <form id="blog_form" method="post" enctype="multipart/form-data" onsubmit="submit_data(); return false">
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="form_file_train" class="form-label">Training set:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="form-control" type="file" id="form_file_train" name="form_file_train" accept=".csv" aria-describedby="error_train">
+                        </div>
+                        <div class="col-3">
+                            <div id="error_train" class="form-text text-danger"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <label for="form_file_test" class="form-label">Testing set:</label>
+                        </div>
+                        <div class="col-6">
+                            <input class="form-control" type="file" id="form_file_test" name="form_file_test" accept=".csv" aria-describedby="error_test">
+                        </div>
+                        <div class="col-3">
+                            <div id="error_test" class="form-text text-danger"></div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    </div>
+                </form>
+                <script>
+                    /*
+                    var chart = Highcharts.chart('chart_container', {
+                        chart: {
+                            renderTo: 'chart_container',
+                            type: 'line'
+                        },
+                        title: {
+                            text: 'Hourly Demand Prediction'
+                        },
+                        subtitle: {
+                            text: 'By Kowloon Tong MMW'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Value'
+                            }
+                        },
+                        series: [{
+                            name: 'Actual',
+                            data: [[1370131200000, 1], [1370217600000, 2], [1370304000000, 3], [1370390400000, 4]]
+                        }, {
+                            name: 'Predicted',
+                            data: [[1370131200000, 5], [1370217600000, 6], [1370304000000, 7], [1370390400000, 8]]
+                        }]
+                    });
+                    */
+                    var chart = Highcharts.chart('chart_container', {
+                        chart: {
+                            renderTo: 'chart_container',
+                            type: 'arearange',
+                            zoomType: 'x'
+                        },
+                        title: {
+                            text: 'Hourly Demand Prediction'
+                        },
+                        subtitle: {
+                            text: 'By Kowloon Tong MMW'
+                        },
+                        xAxis: {
+                            type: 'datetime',
+                            dateTimeLabelFormats: {
+                                millisecond: '%H:%M:%S.%L',
+                                second: '%H:%M:%S',
+                                minute: '%H:%M',
+                                hour: '%H:%M',
+                                day: '%m-%d',
+                                week: '%m-%d',
+                                month: '%Y-%m',
+                                year: '%Y'
+                            }
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Value'
+                            }
+                        },
+                        series: [{
+                            name: 'Actual/Predicted',
+                            data: [[1370131200000, 1, 5], [1370217600000, 2, 6], [1370304000000, 3, 7], [1370390400000, 4, -1]]
+                        }]
+                    });
+
+                    function submit_data() {
+                        var formData = new FormData(document.getElementById('blog_form'));
+                        var err_train = $('#error_train')[0], err_test = $('#error_test')[0];
+                        err_train.innerText = "";
+                        err_test.innerText = "";
+                        $.ajax({
+                            url: "{{ url_for('index.upload_data') }}",
+                            type: "POST",
+                            data: formData,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            dataType: 'json',
+                            success: function(e) {
+                                if(e['status'] === 'failure') {
+                                    if(e['msg'] === 'csv_train/empty_file')
+                                        err_train.innerText = "Empty File!";
+                                    else if(e['msg'] === 'csv_train/wrong_extension')
+                                        err_train.innerText = "Wrong File Type!";
+                                    else if(e['msg'] === 'csv_train/wrong_file')
+                                        err_train.innerText = "Wrong File!";
+                                    else if(e['msg'] === 'csv_test/empty_file')
+                                        err_test.innerText = "Empty File!";
+                                    else if(e['msg'] === 'csv_test/wrong_extension')
+                                        err_test.innerText = "Wrong File Type!";
+                                    else if(e['msg'] === 'csv_test/wrong_file')
+                                        err_test.innerText = "Wrong File!";
+                                }
+                                else {
+                                    alert(e['status']);
+                                }
+                            },
+                            error: function() {
+                                console.log('Internal Server Error!');
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
