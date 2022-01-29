@@ -25,7 +25,7 @@ val_data = Mydataset("val")
 train_loader, val_loader=generate_dataloaders(train_data, val_data,batch_size=32)
 
 # confg
-my_confg={"load_from_path":None,"save_to_path":"1_29/","lr":0.001,"weight_decay":0,"num_epochs":1}
+my_confg={"load_from_path":None,"save_to_path":"1_29/","lr":0.001,"weight_decay":0,"num_epochs":50}
 my_confg = Namespace(**my_confg)
 
 # Train

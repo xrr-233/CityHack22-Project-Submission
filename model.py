@@ -183,3 +183,19 @@ def log_loss(epoch_trainlosses, epoch_vallosses,my_confg,save_name):
         f.write(f'Epoch {i}, train_loss: {train_l:.4f}, val_loss: {val_l:.4f}\n')
     f.close()
 
+def pred(net, loader):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    torch.set_grad_enabled(False)
+    net.to(device)
+    net.eval()
+    y_pred = []
+    for f1,f2,f3,f4,y in loader: 
+        f1=f1.to(device)
+        f2=f2.to(device)
+        f3=f3.to(device)
+        f4=f4.to(device)
+        y_hat=net(f1,f2,f3,f4)
+        y_pred.append(y_hat.cpu().detach().numpy())
+    predictions = np.concatenate(y_pred)
+    return predictions
+
