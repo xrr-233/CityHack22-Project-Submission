@@ -2,7 +2,6 @@
 ## Project: KTM's Inspiration
 <img src="static/favicon.png" width="200" alt="project_logo"/>
 
-< Replace the logo above with Your Project Logo >
 ## Team: Kowloon Tong MMW
 ## Members
 - XU Rui (Leader)
@@ -21,7 +20,8 @@
 2. Another issue is that they may face the drained creativity. What we are going to do is to make a ‘inspiration pool’ for them. We use our prediction model to conclude several hot topics in the future. Also, we can also predict the expected performance results, like views for customer’s selected topic.
 
 3. Because this ‘inspiration pool’ is make by predicted hot topics, so our customers (eg. Vlogger), they are very likely to be an internet sensation.
-![model](static/model.png)
+
+  ![model](static/model.png)
 
 ## Tech used (as many as required)
 1. Feature Engineering
