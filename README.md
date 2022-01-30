@@ -12,6 +12,9 @@
 
 ## Description of the Project (300 words)
 
+** ipynb files are in the "ipynb IS HERE!!!!!" folder **
+** Predicted Y Values file is in the home folder **
+
 ## 3 Most Impactful Features of the Project (with Screenshot and Short Description (150 words))
 1. < First Feature >
 2. < Second Feature >
