@@ -1,0 +1,23 @@
+{% extends 'common.html' %}
+{% block head %}
+    <style>
+        p, ol, ul {
+            font-weight: lighter;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+{% endblock %}
+{% block body %}
+    <div class="container" style="padding-top: 50px">
+        <div class="row">
+            <div class="offset-3 col-6">
+                <div class="mt-5 blog"></div>
+            </div>
+            <script>
+                $.get('{{ url_for('static', filename='techniques.md') }}', function(response, status, xhr){
+                    $(".blog").html(marked.parse(response));
+                });
+            </script>
+        </div>
+    </div>
+{% endblock %}

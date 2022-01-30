@@ -1,0 +1,40 @@
+{% extends 'common.html' %}
+{% block head %}
+    <style>
+        .music {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2)), url({{ url_for('static', filename="vlog.jpg") }});
+            background-size: cover;
+            height: calc(100vh - 50px);
+            width: 100vw;
+            overflow-x: hidden;
+        }
+        .music-introduction {
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 1));
+            animation: music-translate 1s ease;
+            transform: translate(40%);
+            animation-fill-mode: forwards;
+        }
+        @keyframes music-translate
+        {
+            from {transform: translate(40%)}
+            to {transform: translate(0%)}
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="container-fluid" style="padding-top: 50px">
+        <div class="row">
+            <div class="col-12 music">
+                <div class="row" style="height: 100%">
+                    <div class="offset-6 col-6 position-relative music-introduction">
+                        <div class="position-absolute top-50 start-50 translate-middle">
+                            <h1>Project Introduction</h1>
+                            <small>KTW’s focus on integration the various areas of AI and data science to predicted hot topics for Vloggers.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
