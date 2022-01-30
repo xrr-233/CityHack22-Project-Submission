@@ -15,6 +15,8 @@
 
 + **Predicted Y Values file is in the home folder**
 
+We use the recurrent neural network, to be more specific, GRU to handle the time-series data. In addition, our final prediction is the emsemble of the autoML and our home_made model, which make our model more accurate.
+
   ![model](static/model.png)
 
 ## 3 Most Impactful Features of the Project (with Screenshot and Short Description (150 words))
