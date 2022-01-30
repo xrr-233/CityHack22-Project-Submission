@@ -3,13 +3,12 @@
 <img src="static/favicon.png" width="200" alt="project_logo"/>
 
 < Replace the logo above with Your Project Logo >
-## Team: < Your Team Name >
+## Team: Kowloon Tong MMW
 ## Members
-- < Team Member 1 > (Leader)
-- < Team Member 2 >
-- < Team Member 3 >
-- < Team Member 4 >
-- < Team Member 5 >
+- XU Rui (Leader)
+- HUANG Jianming
+- HUANG Xiuqi
+- ZHANG Zhiyuan
 
 ## Description of the Project (300 words)
 
