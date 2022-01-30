@@ -1,5 +1,5 @@
 # CityHack22 Project Submission
-## Project: < Your CityHack22 Project Name >
+## Project: KTM's Inspiration
 <img src="static/favicon.png" width="200" alt="project_logo"/>
 
 < Replace the logo above with Your Project Logo >
