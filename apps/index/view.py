@@ -82,7 +82,7 @@ def upload_data():  # put application's code here
             timestamp = int(time.mktime(time_array)) * 1000
             original_data.append([timestamp, float(this_line[5])])
 
-    #res = api(upload_path_train, upload_path_test)
+    res = api(upload_path_train, upload_path_test)
     # print(res)
     # print(res[10:])
     #print(len(res))
@@ -97,15 +97,15 @@ def upload_data():  # put application's code here
             predicted_data.append([timestamp, res[ptr]])
             ptr += 1
     '''
-    #with open(upload_path_test, 'r') as f:
-    with open(base + '/static/final_all.csv', 'r') as f:
+    with open(upload_path_test, 'r') as f:
+    #with open(base + '/static/final_all2.csv', 'r') as f:
         all_lines = f.readlines()
         for i in range(1, len(all_lines)):
             this_line = all_lines[i].strip().split(',')
             time_array = time.strptime(this_line[0], "%Y-%m-%d %H:%M:%S")
             timestamp = int(time.mktime(time_array)) * 1000
-            #predicted_data.append([timestamp, res[ptr]])
-            predicted_data.append([timestamp, float(this_line[5])])
+            predicted_data.append([timestamp, res[ptr]])
+            #predicted_data.append([timestamp, float(this_line[5])])
             ptr += 1
 
     return jsonify({"status": "success"})
